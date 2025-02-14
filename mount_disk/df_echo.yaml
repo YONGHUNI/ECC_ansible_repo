@@ -1,0 +1,9 @@
+- name: First Ansible directive
+  hosts: gpu_nodes_batch2 
+  become: true
+  tasks:
+    - name: df and grep
+      shell: df -h | grep /data
+      register: echo_output
+    - debug:
+        var: echo_output.stdout_lines

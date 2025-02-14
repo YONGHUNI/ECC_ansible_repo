@@ -1,0 +1,9 @@
+- name: First Ansible directive
+  hosts: bulletins
+  become: false
+  tasks:
+    - name: echo hello
+      shell: ls -lrt ~/Downloads 
+      register: echo_output
+    - debug:
+        var: echo_output.stdout_lines

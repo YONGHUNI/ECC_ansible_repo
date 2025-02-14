@@ -1,0 +1,22 @@
+- hosts: IABENG05
+  tasks:
+   - name: init V3
+     become: true
+     expect:
+       chdir: /usr/local/v3net/bin
+       command: ./v3cli
+       responses:
+         '\ \ / /__ / | \| |___| |': 'action update start'
+         'Manual update started': 'show summary'
+         'Update in progress': 'q'
+       echo: yes
+   - name: set V3 weekly scan
+     become: true
+     expect:
+       chdir: /usr/local/v3net/bin
+       command: ./v3cli
+       responses:
+         '\ \ / /__ / | \| |___| |': 'set scheduledscan set use 1'
+         'Settings applied successfully': 'settings scheduledscan add name everyweek scheduledcycle 2 scheduledweek 0 diagnosticscanuse 1 target 1 cureoption 2 autocure 1 movequarantine 1 scheduledpath / scheduledtime 00:00'
+         'New scan schedule added': 'q'
+       echo: yes

@@ -1,0 +1,38 @@
+- hosts: IABENG66 #gpu_nodes_batch2
+  vars:
+    V3_TARBALL: v3net-linux-3.6.14.6.1051.tar.Z
+  become: true
+
+  tasks:
+   - name: Execute V3 Install (must be executed with python3)
+     become: yes
+     expect:
+       chdir: /tmp/v3net
+       command: ./install.sh
+       responses:
+         #         '--More--': 'q'
+         'Do you accept the terms of the EULA': 'y'
+         'Do you agree to the ASD network participation and data collection agreement': 'y'
+         'Installation Path': '/usr/local/v3net'
+         'Company:': 'PlEaSe rEfeR to tHE MANuaL FrOm SNU'
+         'User Name': 'RTFM'
+         'Product No.\(example: 12345678-12345678\)': 'RTFM-RTFM'
+         'Interoperate with AhnLab Manager': 'y'
+         'Enter IP for AhnLab Manager': '147.46.RT.FM'
+         'AhnLab Manager Type': '2'
+         'Set Auto-Start\(V3 starts automatically after installation and reboot\)': 'y'
+         'Do you want to continue to install?': 'y'
+       echo: yes
+
+   - name: Execute v3net
+     become: true
+     command: /usr/local/v3net/v3net.sh start
+
+   - name: Add path to .bashrc
+     become: true
+     lineinfile:
+       dest: '/root/.bashrc'
+       line: |
+         #
+         # Add path to .bashrc
+         export PATH="/usr/local/v3net/bin/:$PATH"

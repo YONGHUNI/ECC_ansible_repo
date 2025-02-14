@@ -1,0 +1,28 @@
+- hosts: IABENG66 #gpu_nodes_batch2
+  vars:
+    mount_path: /data
+    ftype: ext4
+    source: /dev/sda
+  become: true
+
+  tasks:
+   - name: Create data dir
+     file:
+       path: "{{ mount_path }}"
+       state: directory
+   - name: format sda
+     filesystem:
+       fstype: ext4
+       dev: /dev/sda
+       force: yes
+   - name: Mount up a device
+     mount:
+       path: /data 
+       src: /dev/sda
+       fstype: ext4
+       state: mounted
+   - name: Ensure /dev/sda is in /etc/fstab
+     lineinfile:
+       path: /etc/fstab
+       line: "/dev/sda /data ext4 defaults 0 0"
+       state: present

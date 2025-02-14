@@ -1,0 +1,6 @@
+- name: First Ansible directive
+  hosts: bulletins
+  become: false
+  tasks:
+    - name: echo hello
+      shell: nohup ~/Downloads/ytplayvlc https://www.youtube.com/watch?v=FJfwehhzIhw 95 > /dev/null &

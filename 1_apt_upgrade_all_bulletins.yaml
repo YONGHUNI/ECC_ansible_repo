@@ -1,0 +1,13 @@
+- name: apt update & upgrade
+  hosts: bulletins
+  become: true
+  tasks:
+    - name: sudo apt update && sudo apt upgrade
+      apt:
+        #state: fixed
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 # 1-day
+    - name: Remove dependencies that are no longer required
+      apt:
+        autoremove: yes

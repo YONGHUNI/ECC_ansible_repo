@@ -1,0 +1,5 @@
+- hosts: bulletins
+  tasks:
+      - name: Reboot all worker nodes
+        become: true 
+        reboot:

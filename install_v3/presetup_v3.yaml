@@ -1,0 +1,41 @@
+- hosts: IABENG66 #gpu_nodes_batch2
+  vars:
+    V3_TARBALL: v3net-linux-3.6.14.6.1051.tar.Z
+  become: true
+
+  tasks:
+   - name: Copy V3 tarball to remote
+     copy:
+       dest: /tmp/{{ V3_TARBALL }}
+       src: ./src/{{ V3_TARBALL }}
+
+   - name: Extract tarball
+     unarchive:
+       src: /tmp/{{ V3_TARBALL }}
+       dest: /tmp
+       remote_src: yes
+
+         #   - name: install python's pip
+         #     apt:
+         #       name: python3-pip
+         #       update_cache: yes
+
+         #   - name: Install pexpect python module
+         #     become: true
+         #     pip:
+         #      name: 'pexpect'
+         #      state: present
+
+   - name: Install pexpect python module using apt
+     apt:
+       name: python3-pexpect
+       update_cache: yes
+
+   - name: rm AhnLab_SW_EULA_ENG.txt
+     become: true
+     shell: rm /tmp/v3net/files/common/www/EULA/AhnLab_SW_EULA_ENG.txt && touch /tmp/v3net/files/common/www/EULA/AhnLab_SW_EULA_ENG.txt
+
+   - name: rm ASD_License_ENG.txt
+     become: true
+     shell: rm /tmp/v3net/files/common/www/EULA/ASD_License_ENG.txt && touch /tmp/v3net/files/common/www/EULA/ASD_License_ENG.txt
+
