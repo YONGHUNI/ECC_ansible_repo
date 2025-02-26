@@ -1,0 +1,6 @@
+- name: Stop Running MPVs
+  hosts: bulletins_prod
+  become: yes
+  tasks:
+    - name: kill background mpv process
+      shell: ps -ef | grep mpv | grep bin | awk '{print $2}' | xargs kill &>/dev/null

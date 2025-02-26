@@ -1,4 +1,4 @@
-- hosts: bulletins
+- hosts: bulletins_prod
   tasks:
       - name: Reboot all worker nodes
         become: true 

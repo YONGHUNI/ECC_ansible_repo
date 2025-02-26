@@ -1,0 +1,10 @@
+- name: Play youtube live
+  hosts: bulletins_prod
+  #become: yes
+  #become_user: rpiadmin
+  tasks:
+    - name: kill background mpv process
+      become: true
+      shell: ps -ef | grep mpv | grep bin | awk '{print $2}' | xargs kill & > /dev/null 
+    - name: play youtube video
+      shell: nohup bash /home/rpiadmin/yt_streaming/yt_play_mpv.bash https://www.youtube.com/live/kJppOvErepc 95 & > /dev/null

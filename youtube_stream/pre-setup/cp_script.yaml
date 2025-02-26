@@ -1,0 +1,16 @@
+- hosts: bulletins_prod
+  become: yes
+  become_user: rpiadmin
+  tasks:
+    - name: creates directory
+      file:
+        path: ~/yt_streaming
+        state: directory
+    - name: Copy bash script to remote
+      copy:
+        dest: ~/yt_streaming
+        src: ./../data/yt_play_mpv.bash
+    - name: Copy bulletin video to remote
+      copy:
+        dest: ~/yt_streaming
+        src: ./../data/video_bulletin.mp4

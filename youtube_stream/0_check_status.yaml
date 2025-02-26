@@ -1,0 +1,9 @@
+- name: MPV Status Checker
+  hosts: bulletins_prod
+  become: false
+  tasks:
+    - name: Find mpv process
+      shell: ps -ef | grep mpv | grep bin 
+      register: echo_output
+    - debug:
+        var: echo_output.stdout_lines

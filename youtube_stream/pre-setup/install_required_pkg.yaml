@@ -1,0 +1,13 @@
+- hosts: bulletins_prod
+  become: true
+  tasks:
+   - name: install apt packages
+     apt: name={{ item }} update_cache=yes
+     with_items:
+       - vim
+       - snapd
+   - name: Install foo
+     community.general.snap:
+       name:
+         - mpv
+         - yt-dlp

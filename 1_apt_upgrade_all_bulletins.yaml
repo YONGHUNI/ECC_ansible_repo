@@ -1,5 +1,5 @@
 - name: apt update & upgrade
-  hosts: bulletins
+  hosts: bulletins_prod
   become: true
   tasks:
     - name: sudo apt update && sudo apt upgrade
@@ -11,3 +11,5 @@
     - name: Remove dependencies that are no longer required
       apt:
         autoremove: yes
+    - name: snap refresh(upgrade)
+      shell: snap refresh

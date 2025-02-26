@@ -1,0 +1,9 @@
+- name: Play video from file
+  hosts: bulletins_prod
+  become: yes
+  #become_user: rpiadmin
+  tasks:
+    - name: kill background mpv process
+      shell:  ps -ef | grep mpv | grep bin | awk '{print $2}' | xargs kill & > /dev/null
+    - name: play video from file
+      shell: nohup /snap/bin/mpv --loop-file=inf /home/rpiadmin/yt_streaming/video_bulletin.mp4 & > /dev/null

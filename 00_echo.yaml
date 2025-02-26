@@ -1,5 +1,5 @@
 - name: First Ansible directive
-  hosts: bulletins
+  hosts: bulletins_prod
   become: false
   tasks:
     - name: echo hello
